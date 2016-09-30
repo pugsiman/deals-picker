@@ -15,7 +15,7 @@ gem 'oj'
 gem 'dry-types'
 gem 'dry-validation'
 gem 'responders'
-gem 'vaacum'
+gem 'vacuum'
 
 group :development, :test do
   gem 'dotenv-rails'
