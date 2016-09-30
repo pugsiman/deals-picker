@@ -12,8 +12,10 @@ gem 'awesome_print'
 gem 'http'
 gem 'mechanize'
 gem 'oj'
-gem 'virtus'
+gem 'dry-types'
+gem 'dry-validation'
 gem 'responders'
+gem 'vaacum'
 
 group :development, :test do
   gem 'dotenv-rails'
