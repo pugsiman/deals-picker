@@ -1,13 +1,14 @@
 source 'https://rubygems.org'
 ruby '2.3.1'
 
-gem 'rails', github: "rails/rails"
-
-gem 'pg', '~> 0.18'
+gem 'rails'
+gem 'pg', '~> 0.19'
 gem 'puma', '~> 3.0'
 # gem 'jbuilder', '~> 2.5'
-gem 'active_model_serializers'
+
+gem 'active_model_serializers', '~> 0.10.0'
 gem 'rack-cors'
+
 gem 'awesome_print'
 gem 'http'
 gem 'mechanize'
@@ -21,7 +22,7 @@ group :development, :test do
   gem 'dotenv-rails'
   gem 'rspec-rails'
   gem 'factory_girl_rails'
-  gem 'pry'
+  gem 'pry-rails'
   gem 'byebug', platform: :mri
 end
 
@@ -30,7 +31,6 @@ group :development do
   gem 'listen', '~> 3.0.5'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
-  gem 'letter_opener'
 end
 
 group :test do
