@@ -1,29 +1,32 @@
-module ProdcutName
-  class Search
-    attr_reader :search_value
+class UndefinedPlatformError < StandardError; end
 
-    def initialize(search_value)
-      @search_value = URI search_value
-    end
+class ProductName::Search
+  class << self
+    def call(search_value)
+      return if search_value.nil?
 
-    def call
-
-      if url_given?
-        get_product_name_by_url
-      else
-
-      end
+      scraper = SetScraper.call
+      search_urls.flat_map do |platform, url|
+        page = scraper.get(url + search_value)
+        results_extractor(platform).(page).first(3)
+      end.uniq
     end
 
     private
 
-    def url_given?
-      search_value.kind_of? URI::HTTP
+    def results_extractor(platform)
+      case platform
+      when 'amazon'
+        -> page { page.search('[id*="result_"] h2').map(&:text) }
+      else
+        raise UndefinedPlatformError, platform
+      end
     end
 
-    def get_product_name_by_url
-      platform = search_value.host.to_s.split('.').first
-      ProductName::Extract.call(platform)
+    def search_urls
+      {
+        'amazon' => 'https://www.amazon.com/s/?field-keywords='
+      }
     end
   end
 end
