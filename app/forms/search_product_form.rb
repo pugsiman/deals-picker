@@ -1,6 +1,6 @@
 class SearchProductForm
-  include ActiveRecord::Validations
   include Virtus.model
+  include ActiveModel::Validations
 
   attribute :search_value, String
 
@@ -11,6 +11,6 @@ class SearchProductForm
   end
 
   def validate!
-    raise ValidationError.new(errors: errors) unless valid?
+    raise Errors::ValidationError.new(errors: errors) unless valid?
   end
 end
