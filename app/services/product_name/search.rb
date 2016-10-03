@@ -1,8 +1,17 @@
 class UndefinedPlatformError < StandardError; end
 
 class ProductName::Search
-  class << self
-    def call(search_value)
+    def self.call(search_value)
+      self.new(search_value).call
+    end
+
+    def initialize(search_value)
+      @search_value = search_value
+    end
+
+    attr_reader :search_value
+
+    def call
       return if search_value.nil?
 
       scraper = SetScraper.call
@@ -28,5 +37,4 @@ class ProductName::Search
         'amazon' => 'https://www.amazon.com/s/?field-keywords='
       }
     end
-  end
 end
