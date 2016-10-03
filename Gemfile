@@ -18,6 +18,7 @@ gem 'dry-types'
 gem 'dry-validation'
 gem 'responders'
 gem 'vacuum'
+gem 'addressable'
 
 group :development, :test do
   gem 'dotenv-rails'
