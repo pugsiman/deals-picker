@@ -24,6 +24,6 @@ class SearchProductName
   attr_reader :search_value
 
   def extract_results(platform_name, page)
-    PRODUCT_NAME_EXTRACTORS.fetch(platform_name).call(page)
+    PRODUCT_NAME_EXTRACTORS[:search_page].fetch(platform_name).call(page)
   end
 end
