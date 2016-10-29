@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe ProductName::Search do
+RSpec.describe SearchProductName do
   describe '.call' do
     context 'results found' do
       it 'returns product name candidates' do
