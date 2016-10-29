@@ -4,7 +4,7 @@ class ProductNameFinder
   end
 
   def find
-    if url?(search_value)
+    if url?
       ExtractProductNameFromPage.(search_value)
     else
       SearchProductName.(search_value)
@@ -15,7 +15,7 @@ class ProductNameFinder
 
   attr_reader :search_value
 
-  def url?(value)
-    value =~ /\A#{URI::regexp}\z/
+  def url?
+    search_value =~ /\A#{URI::regexp}\z/
   end
 end
