@@ -1,6 +1,9 @@
 class Search
   attr_reader :value
 
+  AMAZON_REGEX = /(http|https).+amazon.+\/dp\/[A-Z0-9]{10}/
+  EBAY_REGEX = /(http|https).+ebay.+\/itm\//
+
   def initialize(value)
     @value = value
   end
@@ -17,12 +20,9 @@ class Search
     value =~ /\A#{URI::regexp}\z/
   end
 
-  def amazon?
-    return false unless url?
-    value =~ /(http|https).+amazon.+\/dp\/[A-Z0-9]{10}(.+&m=[a-zA-Z0-9]+)?/
-  end
-
-  def ebay?
-    false
+  def platform
+    return unless url?
+    return 'amazon' if value =~ AMAZON_REGEX
+    return 'ebay'   if value =~ EBAY_REGEX
   end
 end

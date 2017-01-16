@@ -5,7 +5,7 @@ RSpec.describe SearchProductName do
     context 'results found' do
       it 'returns product name candidates' do
         VCR.use_cassette 'product_name/search/results_found' do
-          expect(described_class.('iron rangers')).to eq [
+          expect(described_class.(name: 'iron rangers', name_extractor: AmazonProductNameExtractor)).to eq [
             "Red Wing Heritage Iron Ranger 6\" Boot",
             "Wolverine 1000 Mile Men's Wolverine 1000 Mile Boots",
             "Chippewa Men's 6\" Rugged Handcrafted Lace-Up Boot"
@@ -17,7 +17,7 @@ RSpec.describe SearchProductName do
     context 'result not found' do
       it 'returns error' do
         VCR.use_cassette 'product_name/search/results_not_found' do
-          expect(described_class.('ahsdkjashdkajsdhaksjdhasjkhd')).to eq []
+          expect(described_class.(name: 'ahsdkjashdkajsdhaksjdhasjkhd', name_extractor: ProductNameExtractor)).to eq []
         end
       end
     end

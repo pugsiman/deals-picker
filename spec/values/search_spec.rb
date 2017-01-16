@@ -8,10 +8,10 @@ RSpec.describe Search do
     end
   end
 
-  describe '#amazon?' do
-    it 'returns true if search value is amazon url' do
+  describe '#platform' do
+    it 'returns the platform' do
       value = described_class.new('https://www.amazon.com/Standing-Desk-Black/dp/B00JI6NCCF/?m=A1FY13EDY08TTN')
-      expect(value.amazon?).to be_truthy
+      expect(value.platform).to eq 'amazon'
     end
   end
 end
