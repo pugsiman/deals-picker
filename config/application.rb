@@ -17,5 +17,6 @@ module DealsPicker
   class Application < Rails::Application
     config.app_generators.scaffold_controller :responders_controller
     config.api_only = true
+    config.autoload_paths += Dir["#{config.root}/lib/**/"]
   end
 end

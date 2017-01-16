@@ -1,29 +1,26 @@
 class SearchProductName
-  SEARCH_URLS = { # temp
-    'amazon' => 'https://www.amazon.com/s/?field-keywords='
-  }
+  SEARCHABLE_URLS = [
+    'https://www.amazon.com/s/?field-keywords='
+  ]
 
-  def self.call(search_value)
-    self.new(search_value).call
+  def self.call(args)
+    self.new(args).call
   end
 
-  def initialize(search_value)
-    @search_value = search_value
+  def initialize(args)
+    @search_value = args.fetch(:name)
+    @extractor = args.fetch(:name_extractor)
   end
 
   def call
     scraper = SetScraper.call
-    SEARCH_URLS.flat_map do |platform, url|
+    SEARCHABLE_URLS.flat_map do |url|
       page = scraper.get(url + search_value)
-      extract_results(platform, page).first(3)
+      extractor.(page).first(3)
     end.uniq
   end
 
   private
 
-  attr_reader :search_value
-
-  def extract_results(platform_name, page)
-    PRODUCT_NAME_EXTRACTORS[:search_page].fetch(platform_name).call(page)
-  end
+  attr_reader :search_value, :extractor
 end

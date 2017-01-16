@@ -1,6 +1,7 @@
 class ExtractProductNameFromPage
-  def initialize(search_value)
-    @search_value = search_value
+  def initialize(args)
+    @url = args.fetch(:url)
+    @extractor = args.fetch(:name_extractor)
   end
 
   def self.call(search_value)
@@ -10,15 +11,10 @@ class ExtractProductNameFromPage
   def call
     scraper = SetScraper.call
     page = scraper.get(search_value)
-    platform_name = parse_platform_name
-    PRODUCT_NAME_EXTRACTORS[:listing_page].fetch(platform_name).call(page)
+    extractor.(page)
   end
 
   private
 
-  attr_reader :search_value
-
-  def parse_platform_name
-    nil
-  end
+  attr_reader :url, :extractor
 end
