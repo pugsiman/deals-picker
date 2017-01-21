@@ -1,4 +1,4 @@
-class SetScraper
+class SetClient
   def self.call
     agent = Mechanize.new
     agent.user_agent = 'Mozilla/5.0(Windows; U; Windows NT 7.0; rv:1.9.2) Gecko/20100101 Firefox/3.6'

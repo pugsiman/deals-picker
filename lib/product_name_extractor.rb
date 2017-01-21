@@ -1,15 +1,14 @@
 class ProductNameExtractor
   attr_reader :page
+  attr_accessor :extractor
 
-  def initialize(page)
-    @page = page
+  def initialize(args)
+    @page = args.fetch(:page)
+    @url = args.fetch(:url)
+    @extractor = args.fetch(:extractor)
   end
 
-  def self.call(page)
-    new(page).call
-  end
-
-  def call
-    []
+  def extract
+    extractor.extract(self)
   end
 end

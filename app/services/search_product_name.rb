@@ -9,18 +9,22 @@ class SearchProductName
 
   def initialize(args)
     @search_value = args.fetch(:name)
-    @extractor = args.fetch(:name_extractor)
+    @name_scraper = args.fetch(:name_scraper)
   end
 
   def call
-    scraper = SetScraper.call
+    http_client = SetClient.call
     SEARCHABLE_URLS.flat_map do |url|
-      page = scraper.get(url + search_value)
-      extractor.(page).first(3)
+      page = http_client.get(url + search_value)
+      ProductNameExtractor.new(page: page, url: url, extractor: product_name_extractor).extract.first(3)
     end.uniq
   end
 
   private
 
-  attr_reader :search_value, :extractor
+  attr_reader :search_value, :name_scraper
+
+  def product_name_extractor
+    AmazonProductNameExtractor.new
+  end
 end
