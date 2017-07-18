@@ -1,7 +1,6 @@
 class ExtractProductNameFromPage
-  def initialize(args)
-    @url = args.fetch(:url)
-    @extractor = args.fetch(:name_extractor)
+  def initialize(search_value)
+    @url = search_value
   end
 
   def self.call(search_value)
@@ -9,12 +8,13 @@ class ExtractProductNameFromPage
   end
 
   def call
-    scraper = SetScraper.call
-    page = scraper.get(search_value)
-    extractor.(page)
+    http_client = SetClient.call
+    page = http_client.get(url)
+    extractor = Extractors::ProductNameFromListing.create(url.platform)
+    [extractor.extract(page)]
   end
 
   private
 
-  attr_reader :url, :extractor
+  attr_reader :url
 end
